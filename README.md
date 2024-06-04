@@ -4,3 +4,21 @@ Para realizar testes com o Menu de Backup, basta executar o arquivo "Principal.j
 
 ## Controle de Versão do backup
 As versões do backup são atribuídas automaticamente utilizando o arquivo indice.txt, armazenado na pasta indice. O arquivo indice.txt armazena a versão atual do backup, e a cada novo backup realizado, a versão é incrementada em 1.
+
+## Relatório
+1. Há uma rotina de compactação usando o algoritmo LZW para fazer backup dos arquivos?
+ - Sim, existe uma rotina completa de compactação LZW dos arquivos para realizar o backup
+   
+2. Há uma rotina de descompactação usando o algoritmo LZW para recuperação dos arquivos?
+ - Sim, existe uma ortina de descompactação utilizando o algoritmo LZW
+
+3. O usuário pode escolher a versão a recuperar?
+ - Sim, o usuário pode escolher a versão a recuperar
+
+4. Qual foi a taxa de compressão alcançada por esse backup? (Compare o tamanho dos arquivos compactados com os arquivos originais)
+- 
+5. O trabalho está funcionando corretamente?
+
+6. O trabalho está completo?
+
+7. O trabalho é original e não a cópia de um trabalho de um colega?
