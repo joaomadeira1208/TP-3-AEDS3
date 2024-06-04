@@ -5,52 +5,80 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class LZW {
 
     public static final int BITS_POR_INDICE = 12;
     public static int versao = -1;
+    private static Scanner console = new Scanner(System.in);
 
 
     public static void main(String[] args){
         
         try {
-            setIndiceAtual();
-             versao = getIndiceAtual();
-             File folder = new File("backup_versao" + versao);
-             if (!folder.exists()) {
-                 boolean result = folder.mkdir();
-                 if (result) {
-                     System.out.println("Diretório criado com sucesso: ");
-                 } else {
-                     System.out.println("Falha ao criar o diretório: ");
-                 }
-             } else {
-                 System.out.println("O diretório já existe: ");
-             }
-             createBackup();
+            int opcao;
+            do {
+                System.out.println("\n\n MENU DE BACKUP");
+                System.out.println("------------");
+                System.out.println("\n1) Realizar novo backup dos dados");
+                System.out.println("2) Recuperar dados de uma versão específica de backup.");
+                System.out.println("\n0) Voltar");
+                System.out.println("\nOpção: ");
 
-            // String msg = "A ARANHA ARRANHA A JARRA";
-            // String msg = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget tortor eu libero molestie lobortis. Maecenas condimentum non nisl venenatis interdum. Praesent vitae aliquet velit. Integer rhoncus sem in ante mattis, nec fringilla orci viverra. Quisque a aliquet urna. Sed luctus condimentum dignissim. Duis feugiat non ante vitae viverra. Duis auctor purus augue, quis hendrerit sem imperdiet id. Sed in sem urna.\r\n" + //
-            //                     "\r\n" + //
-            //                     "Ut vitae dui a nisl varius interdum. Praesent congue eros ut nibh finibus, non elementum massa commodo. Suspendisse sodales aliquet justo nec laoreet. Cras tempus ornare leo sit amet pharetra. In dictum condimentum ultricies. Praesent blandit vel eros non bibendum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In facilisis lorem feugiat turpis auctor, at euismod ipsum condimentum. Integer a eros eros. Suspendisse eget aliquet erat, cursus blandit purus. Quisque volutpat mattis mi quis eleifend.\r\n" + //
-            //                     "\r\n" + //
-            //                     "Proin vitae ipsum non turpis pulvinar condimentum. Sed tortor nisi, dictum id lorem condimentum, mattis aliquet neque. Duis rhoncus tempor felis, a mattis augue feugiat quis. Curabitur ultricies libero quis ex suscipit luctus. Aenean congue, magna ut consectetur ornare, massa lectus condimentum arcu, ac posuere lectus eros id enim. Maecenas eu enim varius, bibendum leo at, finibus quam. Duis eget lobortis lacus. Curabitur quis lacus sit amet justo consequat ultrices a id erat. Quisque congue diam a erat fermentum, nec vulputate mi auctor. Etiam hendrerit massa sit amet dui tempus, non dignissim sem dignissim. Aliquam tristique enim laoreet augue bibendum mollis. Ut pulvinar lectus purus, non consequat massa fermentum at. Nulla a enim non nisi lacinia consequat ultricies vel nunc. Fusce interdum orci eget neque pellentesque lacinia. Vestibulum id lobortis lectus. Praesent viverra eros ut finibus commodo.\r\n" + //
-            //                     "\r\n" + //
-            //                     "In hac habitasse platea dictumst. Phasellus interdum elit ut lacinia blandit. Mauris luctus tempor ante ut ultrices. Phasellus vitae magna blandit, ultrices mauris in, ultrices eros. Aliquam erat volutpat. Etiam bibendum pretium elementum. Ut eget elit porttitor, sagittis mi a, suscipit enim. Duis in enim dolor. Nunc vel varius enim.\r\n" + //
-            //                     "\r\n" + //
-            //                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare varius malesuada. Mauris eu ornare arcu. Cras ultrices efficitur urna, ac porta purus rutrum sit amet. Praesent nisi dui, placerat quis ipsum sodales, tristique gravida est. Donec ex nulla, vestibulum sed eros et, interdum vestibulum lorem. Aenean id laoreet est. Donec sed aliquam neque. Fusce posuere enim porttitor mauris facilisis finibus. Aliquam neque ex, imperdiet et diam sit amet, aliquam posuere ante.";
-            
-            // byte[] msgBytes = msg.getBytes();
-            // byte[] msgCodificada = codifica(msgBytes);
+                try {
+                    opcao = Integer.valueOf(console.nextLine());
+                } catch(NumberFormatException e) {
+                    opcao = -1;
+                }
 
-            // System.out.println(msg);
-            // System.out.println("mensagem original tem "+msgBytes.length+" bytes");
-            // System.out.println("codificado em "+msgCodificada.length+" bytes");
+                switch(opcao) {
+                    case 1:
+                        setIndiceAtual();
+                        versao = getIndiceAtual();
+                        File folder = new File("backup_versao" + versao);
+                        if (!folder.exists()) {
+                            boolean result = folder.mkdir();
+                            if (result) {
+                                System.out.println("Diretório criado com sucesso: ");
+                            } else {
+                                System.out.println("Falha ao criar o diretório: ");
+                            }
+        
+                        } else {
+                            System.out.println("O diretório já existe: ");
+                        }
+                        createBackup();
+                        break;
+                    case 2:
+                        int option;
+                        System.out.println("\n\nQual versão de backup voce gostaria de recuperar (Por exemplo, digite 1 para backup_versao1): ");
+                        try {
+                            option = Integer.valueOf(console.nextLine());
+                        } catch(NumberFormatException e) {
+                            option = -1;
+                        }
+                        File folder_2 = new File("backup_versao" + option + "_decodificado");
+                        if (!folder_2.exists()) {
+                            boolean result = folder_2.mkdir();
+                            if (result) {
+                                System.out.println("Diretório criado com sucesso: ");
+                            } else {
+                                System.out.println("Falha ao criar o diretório: ");
+                            }
 
-            // byte[] msgDecodificada = decodifica(msgCodificada);
-            // System.out.println(new String(msgDecodificada));
+                        } else {
+                            System.out.println("O diretório já existe: ");
+                        }
+                        descompactarBackup(option);
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção invalida.");
+                }
+            }while(opcao != 0);
 
 
         } catch(Exception e) {
@@ -77,7 +105,6 @@ public class LZW {
 
     public static void createBackup() {
         try {
-            int i = 0;
             File folder = new File("dados");
             File[] listFiles = folder.listFiles();
             for(File file : listFiles) {
@@ -89,9 +116,6 @@ public class LZW {
                         System.out.println(file.getName() + " original: " + fileBytes.length);
                         System.out.println(file.getName() + " codificado: " + fileCodificado.length);
                         System.out.println("-----------------------------------------------");
-            
-                        byte[] fileDecodificado = decodifica(fileCodificado);
-                        writeBackupDecodificado(fileDecodificado, file.getName(), versao);
                     }                    
                 }
             }
@@ -173,7 +197,7 @@ public class LZW {
             }
 
             // acrescenta o último índice à saída
-            saida.add(ultimoIndice);
+            saida.add(indice!=-1 ? indice : ultimoIndice);
 
             // acrescenta o novo vetor de bytes ao dicionário
             if(dicionario.size() < (Math.pow(2, BITS_POR_INDICE))) {
@@ -241,12 +265,13 @@ public class LZW {
             // decodifica o próximo número
             i++;
             if(i<entrada.size()) {
-                proximoVetorBytes = dicionario.get(entrada.get(i));
-                vetorBytes.add(proximoVetorBytes.get(0));
-
                 // adiciona o vetor de bytes (+1 byte do próximo vetor) ao fim do dicionário
                 if(dicionario.size()<Math.pow(2,BITS_POR_INDICE))
                     dicionario.add(vetorBytes);
+                
+                proximoVetorBytes = dicionario.get(entrada.get(i));
+                vetorBytes.add(proximoVetorBytes.get(0));
+
             }
 
         }

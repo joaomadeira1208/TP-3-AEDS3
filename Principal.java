@@ -28,6 +28,7 @@ public class Principal {
         System.out.println("2) Autores");
         System.out.println("3) Livros");
         System.out.println("4) Lista invertida (chaves)");
+        System.out.println("5) Menu de Backup");
         System.out.println("\n9) Reiniciar BD");
         System.out.println("\n0) Sair");
 
@@ -60,6 +61,11 @@ public class Principal {
           } catch (Exception e) {
             e.printStackTrace();
             }
+            break;
+          
+          case 5:
+            LZW.main(args);
+            System.out.println("");
             break;
           case 9:
             preencherDados();
