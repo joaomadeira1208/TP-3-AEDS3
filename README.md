@@ -16,9 +16,12 @@ As versões do backup são atribuídas automaticamente utilizando o arquivo indi
  - Sim, o usuário pode escolher a versão a recuperar
 
 4. Qual foi a taxa de compressão alcançada por esse backup? (Compare o tamanho dos arquivos compactados com os arquivos originais)
-- 
-5. O trabalho está funcionando corretamente?
+ - A taxa de compressão foi de aproximadamente 26,625%
 
-6. O trabalho está completo?
+4. O trabalho está funcionando corretamente?
+ - Sim, o código realiza as operações como requisitado
 
-7. O trabalho é original e não a cópia de um trabalho de um colega?
+5. O trabalho está completo?
+ - Sim
+6. O trabalho é original e não a cópia de um trabalho de um colega?
+ - Sim
